@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ごみ収集スケジュール</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        table {
+            width: 60%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        td {
+            background-color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>ごみ収集スケジュール</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>日付</th>
+                <th>収集するごみ</th>
+            </tr>
+        </thead>
+        <tbody id="schedule-body">
+        </tbody>
+    </table>
+
+    <script>
+        function getWeekdayCount(today) {
+            // その月の1日を取得
+            let firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
+
+            // 1日の曜日を取得
+            let firstDayOfWeek = firstDay.getDay();
+            // 第1金曜日の日付を求める
+            let firstFriday = 1 + ((5 - firstDayOfWeek + 7) % 7); // 最初の金曜日の日
+            // 第2金曜日の日付を求める
+            let secondFriday = firstFriday + 7; // 第1金曜日 + 7日
+            // 第3金曜日の日付を求める
+            let thirdFriday = firstFriday + 14; // 第1金曜日 + 14日
+            // 第4金曜日の日付を求める
+            let forthFriday = firstFriday + 21; // 第1金曜日 + 14日
+            // 第5金曜日の日付を返す 
+            let fifthFriday = firstFriday + 28; // 第1金曜日 + 28日
+
+            // 第3金曜日と一致するか判定
+            // return date.getDate() === thirdFriday;
+            return [firstFriday,secondFriday,thirdFriday,forthFriday,fifthFriday];
+            }
+                
+        function getGarbageSchedule(master) {
+            const today = new Date();
+            let schedule = {};
+
+            for (let i = 0; i < 7; i++) {
+                let checkDate = new Date();
+                checkDate.setDate(today.getDate() + i);
+
+                let yyyy = checkDate.getFullYear();
+                let mm = String(checkDate.getMonth() + 1).padStart(2, '0'); // 月 (0-11なので+1)
+                let dd = String(checkDate.getDate()).padStart(2, '0'); // 日
+                let dayOfWeek = checkDate.getDay(); // 0=日, 1=月, ..., 6=土
+                let dayName = ['日曜日', '月曜日', '火曜日', '水曜日', '木曜日', '金曜日', '土曜日'][dayOfWeek]; // 曜日名
+
+                // if (dayOfWeek == 5) {
+                //     let collected = "テストテスト";
+                //     // schedule[`${yyyy}-${mm}-${dd} (${dayName})`] = collected.length ? collected.join(', ') : 'なし';
+                // }
+                // else {
+                let collected = master[dayOfWeek] || []; // マスターから該当曜日のデータを取得
+                // }
+                if (dayOfWeek == 5) {
+                    testest = getWeekdayCount(today);
+                    console.log(testest);
+                    // collected = ["テストテスト"];
+                }
+                    schedule[`${yyyy}-${mm}-${dd} (${dayName})`] = collected.length ? collected.join(', ') : 'なし';
+            }
+
+            return schedule;
+        }
+
+        // ごみ収集日のマスター情報（曜日ごとに指定: 0=日, 1=月, ..., 6=土）
+        const garbageMaster = {
+            // 1: ["一般ごみ"],  // 月
+            3: ["燃やせるごみ"], // 水
+            // 4: ["燃えるゴミ"],  // 木
+            // 5: ["資源ごみ"],    // 金
+            6: ["燃やせるごみ"]     // 土
+        };
+
+        // スケジュール取得
+        const schedule = getGarbageSchedule(garbageMaster);
+
+        // HTMLに反映
+        const tbody = document.getElementById("schedule-body");
+        Object.entries(schedule).forEach(([date, items]) => {
+            let row = `<tr><td>${date}</td><td>${items}</td></tr>`;
+            tbody.innerHTML += row;
+        });
+    </script>
+
+</body>
+</html>
