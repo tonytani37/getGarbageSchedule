@@ -62,9 +62,7 @@
             let forthFriday = firstFriday + 21; // 第1金曜日 + 14日
             // 第5金曜日の日付を返す 
             let fifthFriday = firstFriday + 28; // 第1金曜日 + 28日
-
-            // 第3金曜日と一致するか判定
-            // return date.getDate() === thirdFriday;
+            // 毎週金曜日の日付を返す
             return [firstFriday,secondFriday,thirdFriday,forthFriday,fifthFriday];
             }
                 
@@ -81,21 +79,42 @@
                 let dd = String(checkDate.getDate()).padStart(2, '0'); // 日
                 let dayOfWeek = checkDate.getDay(); // 0=日, 1=月, ..., 6=土
                 let dayName = ['日曜日', '月曜日', '火曜日', '水曜日', '木曜日', '金曜日', '土曜日'][dayOfWeek]; // 曜日名
-
-                // if (dayOfWeek == 5) {
-                //     let collected = "テストテスト";
-                //     // schedule[`${yyyy}-${mm}-${dd} (${dayName})`] = collected.length ? collected.join(', ') : 'なし';
-                // }
-                // else {
+                
                 let collected = master[dayOfWeek] || []; // マスターから該当曜日のデータを取得
-                // }
+                let allFridays = getWeekdayCount(today);
+                let friday = checkDate.getDate()
+                // console.log(typeof friday )
                 if (dayOfWeek == 5) {
-                    testest = getWeekdayCount(today);
-                    console.log(testest);
-                    // collected = ["テストテスト"];
+                    // allFridays = getWeekdayCount(today);
+                    // console.log(allFridays);
+                    if (allFridays[0] == friday) {
+                        console.log(0)
+                        collected = ["資源ごみ"];
+                    }
+                    else if (allFridays[1] == friday) {
+                        console.log(1)
+                        collected = ["埋め立てごみ"];
+                    }
+                    else if (allFridays[2] == friday) {
+                        console.log(2)
+                        collected = ["資源ごみ"];
+                    }
+                    else if (allFridays[3] == friday) {
+                        console.log(3)
+                        collected = ["大型、小型、複雑、有害ごみ"];
+                    }
+                    else if (allFridays[4] == friday) {
+                        console.log(4)
+                        collected = ["資源ごみ"];
+                    }
+                    else {
+                        console.log(9)
+                        collected = [];
+                    }
                 }
-                    schedule[`${yyyy}-${mm}-${dd} (${dayName})`] = collected.length ? collected.join(', ') : 'なし';
+                schedule[`${yyyy}-${mm}-${dd} (${dayName})`] = collected.length ? collected.join(', ') : 'なし';
             }
+        
 
             return schedule;
         }
