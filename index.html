@@ -33,7 +33,9 @@
 </head>
 <body>
 
-    <h1>ごみ収集スケジュール</h1>
+    <h1>ごみ収集スケジュール</h1><br>
+    <p>阿品台北地区　今週のごみ収集スケジュールです。</p>
+    <!-- <p id ='today'> </p>   -->
     <table>
         <thead>
             <tr>
@@ -68,10 +70,13 @@
                 
         function getGarbageSchedule(master) {
             const today = new Date();
+            // const today = new Date(2025, 1, 12); 
             let schedule = {};
 
             for (let i = 0; i < 7; i++) {
                 let checkDate = new Date();
+                // const today = (2025, 1, 12);
+                // let checkDate = new Date(2025,1,12)
                 checkDate.setDate(today.getDate() + i);
 
                 let yyyy = checkDate.getFullYear();
@@ -82,33 +87,28 @@
                 
                 let collected = master[dayOfWeek] || []; // マスターから該当曜日のデータを取得
                 let allFridays = getWeekdayCount(today);
-                let friday = checkDate.getDate()
-                // console.log(typeof friday )
+                let friday = checkDate.getDate(today)
+                let oddFriday = checkDate.getMonth(today) + 1
                 if (dayOfWeek == 5) {
-                    // allFridays = getWeekdayCount(today);
-                    // console.log(allFridays);
                     if (allFridays[0] == friday) {
-                        console.log(0)
-                        collected = ["資源ごみ"];
+                        collected = ["資源ごみ(第１金曜日)"];
                     }
-                    else if (allFridays[1] == friday) {
-                        console.log(1)
-                        collected = ["埋め立てごみ"];
+                    else if (allFridays[1] == friday && oddFriday % 2 == 1) {
+                        collected = ["埋立ごみ(第２金曜日)＋選定ごみ（奇数月のみ）"];
+                    }
+                        else if (allFridays[1] == friday && oddFriday % 2 == 0) {
+                        collected = ["埋立ごみ(第２金曜日)"];
                     }
                     else if (allFridays[2] == friday) {
-                        console.log(2)
-                        collected = ["資源ごみ"];
+                        collected = ["資源ごみ(第３金曜日)"];
                     }
                     else if (allFridays[3] == friday) {
-                        console.log(3)
-                        collected = ["大型、小型、複雑、有害ごみ"];
+                        collected = ["大型、小型、複雑、有害ごみ(第４金曜日)"];
                     }
                     else if (allFridays[4] == friday) {
-                        console.log(4)
-                        collected = ["資源ごみ"];
+                        collected = ["資源ごみ(第５金曜日)"];
                     }
                     else {
-                        console.log(9)
                         collected = [];
                     }
                 }
@@ -137,6 +137,8 @@
             let row = `<tr><td>${date}</td><td>${items}</td></tr>`;
             tbody.innerHTML += row;
         });
+        // // const hizuke = document.g
+        // document.getElementById('today').innerText = 
     </script>
 
 </body>
