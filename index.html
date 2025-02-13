@@ -54,8 +54,10 @@
         <tbody id="schedule-body">
         </tbody>
     </table>
+    <hr>
+    <P>ゴミの捨て方</P>
+      <img src="statics/img/gomi.jpg" width="400">
     </div>
-
     <script>
         function getWeekdayCount(today) {
             // その月の1日を取得
@@ -79,7 +81,7 @@
         function getGarbageSchedule(master) {
             // 今日の日付を指定（テスト用）
             // todayYear = 2025;
-            // todayMonth = 2; // 1月: 0, 2月: 1, ..., 12月: 11
+            // todayMonth = 0; // 1月: 0, 2月: 1, ..., 12月: 11
             // todayDay = 10; 
             // const today = new Date(todayYear, todayMonth, todayDay); 
             // 今日の日付を指定（テスト用）
@@ -103,28 +105,31 @@
                 let oddFriday = checkDate.getMonth(today) + 1
                 if (dayOfWeek == 5) {
                     if (allFridays[0] == friday) {
-                        collected = ["資源ごみ(第１金曜日)"];
+                        collected = ["資源(第１金曜日)"];
                     }
                     else if (allFridays[1] == friday) {
                         if (oddFriday % 2 == 0) {
-                            collected = ["埋立ごみ(第２金曜日)"];
+                            collected = ["埋立(第２金曜日)"];
                         }
                         else {
-                            collected = ["埋立+選定ごみ（奇数月第２金曜）"];
+                            collected = ["埋+剪（奇数月第２金曜）"];
                         } 
                     }
                     else if (allFridays[2] == friday) {
-                        collected = ["資源ごみ(第３金曜日)"];
+                        collected = ["資源(第３金曜日)"];
                     }
                     else if (allFridays[3] == friday) {
-                        collected = ["大型、複雑、有害ごみ(第４金曜日)"];
+                        collected = ["大、小、有(第４金曜日)"];
                     }
                     else if (allFridays[4] == friday) {
-                        collected = ["資源ごみ(第５金曜日)"];
+                        collected = ["資源(第５金曜日)"];
                     }
                     else {
                         collected = [];
                     }
+                }
+                if ((mm == "12" && dd == "31") || (mm == "01" && dd == "01") || (mm == "01" && dd == "02") || (mm == "01" && dd == "03")) {
+                    collected = [];
                 }
                 // schedule[`${yyyy}-${mm}-${dd} (${dayName})`] = collected.length ? collected.join(', ') : 'なし';
                 schedule[`${mm}月${dd}日 (${dayName})`] = collected.length ? collected.join(', ') : 'なし';
@@ -135,10 +140,10 @@
         // ごみ収集日のマスター情報（曜日ごとに指定: 0=日, 1=月, ..., 6=土）
         const garbageMaster = {
             // 1: ["一般ごみ"],  // 月
-            3: ["燃やせるごみ"], // 水
+            3: ["燃やせる"], // 水
             // 4: ["燃えるゴミ"],  // 木
             // 5: ["資源ごみ"],    // 金
-            6: ["燃やせるごみ"]     // 土
+            6: ["燃やせる"]     // 土
         };
 
         // スケジュール取得
