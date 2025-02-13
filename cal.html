@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>今月のカレンダー（月曜開始）</title>
+    <style>
+        table {
+            width: 100%;
+            max-width: 300px;
+            border-collapse: collapse;
+            text-align: center;
+        }
+        th, td {
+            border: 1px solid #000;
+            padding: 5px;
+        }
+        th {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+    <h2 id="calendar-title"></h2>
+    <table id="calendar">
+        <thead>
+            <tr>
+                <th>月</th><th>火</th><th>水</th><th>木</th><th>金</th><th>土</th><th>日</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+        function generateCalendar() {
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = today.getMonth(); // 今月（0-11）
+
+            // 月初と月末を取得
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+
+            // 月初の曜日を取得（0:日, 1:月, ..., 6:土）
+            let startWeekday = firstDay.getDay(); 
+            if (startWeekday === 0) startWeekday = 7; // 日曜(0)を7に変更
+
+            const totalDays = lastDay.getDate();
+
+            // カレンダーのタイトルを設定
+            document.getElementById("calendar-title").textContent = `${year}年 ${month + 1}月`;
+
+            // カレンダーのHTMLを生成
+            let html = "<tr>";
+            let dayCount = 0;
+
+            // 最初の空白セル（月曜開始なので調整）
+            for (let i = 1; i < startWeekday; i++) {
+                html += "<td></td>";
+                dayCount++;
+            }
+
+            // 日付を埋める
+            for (let day = 1; day <= totalDays; day++) {
+                html += `<td>${day}</td>`;
+                dayCount++;
+                if (dayCount % 7 === 0) html += "</tr><tr>"; // 7日ごとに改行
+            }
+
+            // 最後の空白セル
+            while (dayCount % 7 !== 0) {
+                html += "<td></td>";
+                dayCount++;
+            }
+
+            html += "</tr>";
+            document.querySelector("#calendar tbody").innerHTML = html;
+        }
+
+        generateCalendar();
+    </script>
+</body>
+</html>
