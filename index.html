@@ -39,8 +39,8 @@
 <body>
     <div class='custom-container'>
 
-    <h2>阿品台北地区　ごみ収集スケジュール</h2><br>
-    <p>これから１週間のごみ収集スケジュールです。</p>
+    <h3>阿品台北地区　ごみ収集スケジュール</h3><br>
+    <p>今日から１週間のごみ収集スケジュールです。</p>
     <!-- <p id ='today'> </p>   -->
     <table>
         <thead>
@@ -76,11 +76,12 @@
                 
         function getGarbageSchedule(master) {
             // 今日の日付を指定（テスト用）
-            todayYear = 2025;
-            todayMonth = 2; // 1月: 0, 2月: 1, ..., 12月: 11
-            todayDay = 10; 
-            // const today = new Date(); // 今日の日付を取得
-            const today = new Date(todayYear, todayMonth, todayDay); // 今日の日付を指定（テスト用）
+            // todayYear = 2025;
+            // todayMonth = 2; // 1月: 0, 2月: 1, ..., 12月: 11
+            // todayDay = 10; 
+            // const today = new Date(todayYear, todayMonth, todayDay); 
+            // 今日の日付を指定（テスト用）
+            const today = new Date(); // 今日の日付を取得
             let schedule = {};
 
             for (let i = 0; i < 7; i++) {
