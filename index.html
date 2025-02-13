@@ -25,10 +25,13 @@
             text-align: center;
         }
         th {
-            background-color: #f4f4f4;
+            background-color: #c7c5c5;
         }
-        td {
+        /* td {
             background-color: #fff;
+        } */
+        tr:nth-child(even) {
+            background-color: #e3e2e2
         }
         .custom-container { 
             max-width: 1000px; /* 最大幅を指定 */ 
@@ -56,7 +59,7 @@
     </table>
     <hr>
     <P>ゴミの捨て方</P>
-      <img src="statics/img/gomi.jpg" width="350">
+      <img src="statics/img/gomi.jpg" style="max-width: 90%; height: auto;">
     </div>
     <script>
         function getWeekdayCount(today) {
