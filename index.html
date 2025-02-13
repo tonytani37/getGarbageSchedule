@@ -85,7 +85,7 @@
                 let mm = String(checkDate.getMonth() + 1).padStart(2, '0'); // 月 (0-11なので+1)
                 let dd = String(checkDate.getDate()).padStart(2, '0'); // 日
                 let dayOfWeek = checkDate.getDay(); // 0=日, 1=月, ..., 6=土
-                let dayName = ['日曜日', '月曜日', '火曜日', '水曜日', '木曜日', '金曜日', '土曜日'][dayOfWeek]; // 曜日名
+                let dayName = ['日', '月', '火', '水', '木', '金', '土'][dayOfWeek]; // 曜日名
                 
                 let collected = master[dayOfWeek] || []; // マスターから該当曜日のデータを取得
                 let allFridays = getWeekdayCount(today);
