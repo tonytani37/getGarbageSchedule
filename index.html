@@ -85,8 +85,8 @@
             let schedule = {};
 
             for (let i = 0; i < 7; i++) {
-                // let checkDate = new Date();
-                let checkDate = new Date(todayYear, todayMonth, todayDay) // 今日の日付を指定（テスト用）
+                let checkDate = new Date();
+                // let checkDate = new Date(todayYear, todayMonth, todayDay) // 今日の日付を指定（テスト用）
                 checkDate.setDate(today.getDate() + i);
 
                 let yyyy = checkDate.getFullYear();
