@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <title>ごみ収集スケジュール</title>
     <style>
         body {
@@ -29,9 +30,14 @@
         td {
             background-color: #fff;
         }
+        .custom-container { 
+            max-width: 800px; /* 最大幅を指定 */ 
+            margin: 0 auto; /* 中央揃え */ 
+            } 
     </style>
 </head>
 <body>
+    <div class='custom-container'>
 
     <h2>阿品台北地区　ごみ収集スケジュール</h2><br>
     <p>これから１週間のごみ収集スケジュールです。</p>
@@ -46,6 +52,7 @@
         <tbody id="schedule-body">
         </tbody>
     </table>
+    </div>
 
     <script>
         function getWeekdayCount(today) {
