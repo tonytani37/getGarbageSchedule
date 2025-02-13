@@ -93,11 +93,13 @@
                     if (allFridays[0] == friday) {
                         collected = ["資源ごみ(第１金曜日)"];
                     }
-                    else if (allFridays[1] == friday && oddFriday % 2 == 1) {
-                        collected = ["埋立ごみ(第２金曜日)＋選定ごみ（奇数月のみ）"];
-                    }
-                        else if (allFridays[1] == friday && oddFriday % 2 == 0) {
-                        collected = ["埋立ごみ(第２金曜日)"];
+                    else if (allFridays[1] == friday) {
+                        if (oddFriday % 2 == 0) {
+                            collected = ["埋立ごみ(第２金曜日)"];
+                        }
+                        else {
+                            collected = ["埋立ごみ(第２金曜日)＋選定ごみ（奇数月）"];
+                        } 
                     }
                     else if (allFridays[2] == friday) {
                         collected = ["資源ごみ(第３金曜日)"];
