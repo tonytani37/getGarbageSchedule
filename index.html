@@ -103,8 +103,8 @@
             let schedule = {};
 
             for (let i = 0; i < 7; i++) {
-                // let checkDate = new Date(); // 本番用
-                let checkDate = today; // テスト用
+                let checkDate = new Date(); // 本番用
+                // let checkDate = today; // テスト用
                 checkDate.setDate(today.getDate() + i);
 
                 let yyyy = checkDate.getFullYear();
