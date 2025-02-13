@@ -66,6 +66,12 @@
         <!-- </h3> -->
     </div>
     <script>
+        document.addEventListener("visibilitychange", function () {
+            if (document.visibilityState === "visible") {
+                location.reload();
+            }
+        });
+
         function getWeekdayCount(today) {
             // その月の1日を取得
             let firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
@@ -86,18 +92,19 @@
             }
                 
         function getGarbageSchedule(master) {
-            // 今日の日付を指定（テスト用）
+            // 日付を指定（テスト用）
             // todayYear = 2025;
             // todayMonth = 0; // 1月: 0, 2月: 1, ..., 12月: 11
             // todayDay = 10; 
             // const today = new Date(todayYear, todayMonth, todayDay); 
-            // 今日の日付を指定（テスト用）
+
+            // 今日の日付を指定（本番用）
             const today = new Date(); // 今日の日付を取得
             let schedule = {};
 
             for (let i = 0; i < 7; i++) {
-                let checkDate = new Date();
-                // let checkDate = new Date(todayYear, todayMonth, todayDay) // 今日の日付を指定（テスト用）
+                // let checkDate = new Date(); // 本番用
+                let checkDate = today; // テスト用
                 checkDate.setDate(today.getDate() + i);
 
                 let yyyy = checkDate.getFullYear();
@@ -155,6 +162,7 @@
 
         // スケジュール取得
         const schedule = getGarbageSchedule(garbageMaster);
+        // console.log(schedule);
 
         // HTMLに反映
         const tbody = document.getElementById("schedule-body");
