@@ -51,7 +51,6 @@
         function getWeekdayCount(today) {
             // その月の1日を取得
             let firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
-
             // 1日の曜日を取得
             let firstDayOfWeek = firstDay.getDay();
             // 第1金曜日の日付を求める
@@ -69,14 +68,17 @@
             }
                 
         function getGarbageSchedule(master) {
-            const today = new Date();
-            // const today = new Date(2025, 1, 12); 
+            // 今日の日付を指定（テスト用）
+            todayYear = 2025;
+            todayMonth = 2; // 1月: 0, 2月: 1, ..., 12月: 11
+            todayDay = 10; 
+            // const today = new Date(); // 今日の日付を取得
+            const today = new Date(todayYear, todayMonth, todayDay); // 今日の日付を指定（テスト用）
             let schedule = {};
 
             for (let i = 0; i < 7; i++) {
-                let checkDate = new Date();
-                // const today = (2025, 1, 12);
-                // let checkDate = new Date(2025,1,12)
+                // let checkDate = new Date();
+                let checkDate = new Date(todayYear, todayMonth, todayDay) // 今日の日付を指定（テスト用）
                 checkDate.setDate(today.getDate() + i);
 
                 let yyyy = checkDate.getFullYear();
@@ -98,14 +100,14 @@
                             collected = ["埋立ごみ(第２金曜日)"];
                         }
                         else {
-                            collected = ["埋立ごみ(第２金曜日)＋選定ごみ（奇数月）"];
+                            collected = ["埋立+選定ごみ（奇数月第２金曜）"];
                         } 
                     }
                     else if (allFridays[2] == friday) {
                         collected = ["資源ごみ(第３金曜日)"];
                     }
                     else if (allFridays[3] == friday) {
-                        collected = ["大型、小型、複雑、有害ごみ(第４金曜日)"];
+                        collected = ["大型、複雑、有害ごみ(第４金曜日)"];
                     }
                     else if (allFridays[4] == friday) {
                         collected = ["資源ごみ(第５金曜日)"];
@@ -117,8 +119,6 @@
                 // schedule[`${yyyy}-${mm}-${dd} (${dayName})`] = collected.length ? collected.join(', ') : 'なし';
                 schedule[`${mm}月${dd}日 (${dayName})`] = collected.length ? collected.join(', ') : 'なし';
             }
-        
-
             return schedule;
         }
 
