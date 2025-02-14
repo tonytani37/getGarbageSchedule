@@ -72,25 +72,47 @@
             }
         });
 
-        function getWeekdayCount(today) {
+        // 対象日が金曜日固定とした古いスクリプト
+        // function getWeekdayCount(today) {
+        //     // その月の1日を取得
+        //     let firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
+        //     // 1日の曜日を取得
+        //     let firstDayOfWeek = firstDay.getDay();
+        //     // 第1金曜日の日付を求める
+        //     let firstFriday = 1 + ((5 - firstDayOfWeek + 7) % 7); // 最初の金曜日の日
+        //     // 第2金曜日の日付を求める
+        //     let secondFriday = firstFriday + 7; // 第1金曜日 + 7日
+        //     // 第3金曜日の日付を求める
+        //     let thirdFriday = firstFriday + 14; // 第1金曜日 + 14日
+        //     // 第4金曜日の日付を求める
+        //     let forthFriday = firstFriday + 21; // 第1金曜日 + 14日
+        //     // 第5金曜日の日付を返す 
+        //     let fifthFriday = firstFriday + 28; // 第1金曜日 + 28日
+        //     // 毎週金曜日の日付を返す
+        //     return [firstFriday,secondFriday,thirdFriday,forthFriday,fifthFriday];
+        //     }
+        
+        // targetdayで曜日を指定可能とする新しいスクリプト
+        function getWeekdayCount(today, targetWeekday) {
             // その月の1日を取得
             let firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
-            // 1日の曜日を取得
+            // 1日の曜日を取得（0:日曜, 1:月曜, ..., 6:土曜）
             let firstDayOfWeek = firstDay.getDay();
-            // 第1金曜日の日付を求める
-            let firstFriday = 1 + ((5 - firstDayOfWeek + 7) % 7); // 最初の金曜日の日
-            // 第2金曜日の日付を求める
-            let secondFriday = firstFriday + 7; // 第1金曜日 + 7日
-            // 第3金曜日の日付を求める
-            let thirdFriday = firstFriday + 14; // 第1金曜日 + 14日
-            // 第4金曜日の日付を求める
-            let forthFriday = firstFriday + 21; // 第1金曜日 + 14日
-            // 第5金曜日の日付を返す 
-            let fifthFriday = firstFriday + 28; // 第1金曜日 + 28日
-            // 毎週金曜日の日付を返す
-            return [firstFriday,secondFriday,thirdFriday,forthFriday,fifthFriday];
+            // 最初の指定曜日の日付を求める
+            let firstTargetDay = 1 + ((targetWeekday - firstDayOfWeek + 7) % 7); 
+            // 毎週の指定曜日の日付を計算
+            let weekdayDates = [];
+            
+            for (let i = 0; i < 5; i++) {
+                let date = firstTargetDay + (i * 7);
+                // 月を超えない範囲で追加
+                if (date <= new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate()) {
+                    weekdayDates.push(date);
+                }
             }
-                
+            return weekdayDates;
+        }
+
         function getGarbageSchedule(master) {
             // 日付を指定（テスト用）
             // todayYear = 2025;
@@ -114,10 +136,10 @@
                 let dayName = ['日', '月', '火', '水', '木', '金', '土'][dayOfWeek]; // 曜日名
                 
                 let collected = master[dayOfWeek] || []; // マスターから該当曜日のデータを取得
-                let allFridays = getWeekdayCount(today);
+                let allFridays = getWeekdayCount(today,targetDay);
                 let friday = checkDate.getDate(today)
                 let oddFriday = checkDate.getMonth(today) + 1
-                if (dayOfWeek == 5) {
+                if (dayOfWeek == targetDay) {
                     if (allFridays[0] == friday) {
                         collected = ["資源(第１金曜日)"];
                     }
@@ -159,6 +181,8 @@
             // 5: ["資源ごみ"],    // 金
             6: ["燃やせる"]     // 土
         };
+        // 収集対象ゴミが変則な曜日（金曜日）を指定
+        const targetDay = 5; // （曜日ごとに指定: 0=日, 1=月, ..., 6=土）
 
         // スケジュール取得
         const schedule = getGarbageSchedule(garbageMaster);
