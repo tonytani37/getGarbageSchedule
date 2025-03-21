@@ -1,3 +1,9 @@
+document.addEventListener("visibilitychange", function () {
+    if (document.visibilityState === "visible") {
+        location.reload();
+    }
+});
+
 function getFridaysInNext60Days(baseDate) {
     let fridays = [];
     let startDate = new Date(baseDate);
@@ -26,7 +32,8 @@ function getFridaysInNext60Days(baseDate) {
                     weekOfMonth = ["埋+剪（奇数月第２金曜）"];
                 } 
             }
-            
+            // console.log(typeof month);
+
             fridays.push({
                 // date: `${year}/${String(month).padStart(2, '0')}/${String(date).padStart(2, '0')}`,
                 date: `${String(month).padStart(2, '0')}月${String(date).padStart(2, '0')}日`,

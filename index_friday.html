@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ja">
+<!-- <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>金曜日リスト</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        table {
+            width: 50%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head> -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>ごみ収集スケジュール</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 10px;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            /* background-color: #c7c5c5; */
+            background-color: #86e8b9;
+        }
+        /* td {
+            background-color: #fff;
+        } */
+        tr:nth-child(even) {
+            background-color: #e3e2e2
+        }
+        .custom-container { 
+            max-width: 1000px; /* 最大幅を指定 */ 
+            margin: 0 auto; /* 中央揃え */ 
+            } 
+    </style>
+</head>
+<body>
+    <!-- <h2>処理日から60日間の金曜日リスト</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>日付</th>
+                <th>何週目の金曜日</th>
+            </tr>
+        </thead>
+        <tbody id="friday-list"></tbody>
+    </table> -->
+
+
+    <div class='custom-container'>
+
+        <h4>ごみ収集スケジュール</h4>
+        <!-- <img src='statics/img/1241.jpg' height="50",width="50"> -->
+        <a href="index.html">
+            <img src='statics/img/1241.jpg' height="50",width="50">
+        </a>
+        <h5>阿品台北地区</h5>
+        <p>今日から約２ヶ月間の資源ごみ等収集スケジュール</p>
+        <!-- <p id ='today'> </p>   -->
+        <table>
+            <thead>
+                <tr>
+                    <th>日付</th>
+                    <th>収集するごみ</th>
+                </tr>
+            </thead>
+            <tbody id="friday-list"></tbody>
+        </table>
+        <!-- <hr> -->
+        <P>ゴミの捨て方</P>
+          <img src="statics/img/gomi.jpg" style="max-width: 90%; height: auto;">
+        <br><br>
+            <!-- <h3> -->
+                <a href="https://www.city.hatsukaichi.hiroshima.jp/soshiki/31/78355.html" target="_blank">ゴミの分類を市のホームページで確認</a>
+            <!-- </h3> -->
+        <br><br>
+        <P>アクセスURL</P>
+            <img src="statics/img/QR_547052.png" style="max-width: 90%; height: auto;">
+        <br><br>
+    </div>
+    <script src="statics/js/friday_week_list.js"></script>
+</body>
+</html>
